@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Signup from "./components/SIgnup";
+
 import Login from "./components/Login";
 import Home from "./components/home/Home";
 import Description from "./components/home/Description";
+import Signup from "./components/SIgnup";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -16,7 +17,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Description">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen 
           name = "SignUp"
           options={{ headerShown: false}}
