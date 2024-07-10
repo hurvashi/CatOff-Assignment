@@ -1,51 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   TextInput,
-  Alert
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { auth } from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const isValidEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-
 const isFieldEmpty = (field) => {
-  return field.trim() === '';
+  return field.trim() === "";
 };
 
 export default function Signup() {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
   const handleSignup = async () => {
     try {
-      
       if (!isValidEmail(email)) {
         throw new Error("Please enter a valid email address.");
       }
 
-      
       if (isFieldEmpty(fullName) || isFieldEmpty(password)) {
         throw new Error("Please fill out all fields.");
       }
 
       await createUserWithEmailAndPassword(auth, email, password);
 
-      
       Alert.alert("Success", "You have successfully registered!");
       navigation.navigate("Home");
     } catch (error) {
-      
       Alert.alert("Error", error.message);
     }
   };
@@ -53,7 +47,9 @@ export default function Signup() {
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
-        <View><Text style={styles.txt1}>SignUp</Text></View>
+        <View>
+          <Text style={styles.txt1}>SignUp</Text>
+        </View>
         <View style={styles.formInput}>
           <Text style={styles.txt}>Full Name*</Text>
           <TextInput
@@ -87,10 +83,7 @@ export default function Signup() {
           />
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSignup}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </View>

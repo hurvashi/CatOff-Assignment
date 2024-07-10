@@ -1,152 +1,101 @@
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    Image,
-    TextInput,
-  } from "react-native";
-  import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import LogOutModal from "./LogOutModal";
 import Card from "./Card";
 
+const Home = () => {
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
-export default function Home(){
-    return(
-        <View style = {styles.container}>
-           {/* <TouchableOpacity style = {styles.card}>
-            <View style = {styles.rowItems}>
-            <View style = {styles.text}>
-                <Text style = {styles.status}>UPCOMING</Text>
-                <Text style = {styles.name}>Walking Challenge</Text>
-                <Text style = {styles.description}>walikng 10 steps for a minute</Text>
-            </View>
-            <View style ={styles.imgContainer}>
-                <Image source={require('../assets/icon.png')}
-                style = {styles.img}/>
-                <Text style = {styles.joined}>2/2 Joined</Text>
-            </View>
-            </View>
-            <View style ={styles.credits}>
-                <View style={styles.line}></View>
-                <View style={styles.rowItems1}>
-                <View style={styles.creditContainer}>
-                    <Text style = {styles.txt1}>Minimum Wager</Text>
-                    <Text style = {styles.txt2}>30 Credits</Text>
-                </View>
-                <View style={styles.creditContainer}>
-                    <Text style = {styles.txt1}>Winning Amount </Text>
-                    <Text style = {styles.txt2}>100 Credits</Text>
-                </View>
-                <View style={styles.creditContainer}>
-                    <Text style = {styles.txt1}>Creator </Text>
-                    <Text style = {styles.txt2}>Anna Stone</Text>
-                </View>
-                </View>
-            </View>
-           </TouchableOpacity> */}
-           <Card/>
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setModalVisible(false);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleLogout = () => {
+    setModalVisible(false);
+    navigation.navigate("Login");
+  };
+
+  return (
+    <View style={styles.container}>
+        <View style = {styles.txtContainer}>
+        <Text style = {styles.txt}>TRENDING</Text>
         </View>
-    );
-}
+       
+      <View  style={styles.cardContainer}>
+        <Card />
+        <Card />
+        
+      </View>
+
+      <LogOutModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onLogout={handleLogout}
+      />
+        <View style={styles.btnContainer}>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
+    </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-
-container:{
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:'#F5F5F5',
-    flex:1,
-},
-// card:{
-//     width:'90%',
-//     height:200,
-//     backgroundColor:'#fff',
-//     borderColor:'#d5d5d5',
-//     borderWidth:1,
-//     borderRadius:18,
-//     shadowColor:'#000',
-//     justifyContent:'center',
-//     alignItems:'center',
-// },
-// rowItems:{
-//     flexDirection:'row',
-//     justifyContent:'space-between',
-//     alignItems:'center',
-//     width:'90%',
-//     height:'60%',
-// },
-// text:{
-//     justifyContent:'center',
-//     alignItems:'flex-start',
-//     gap:5,
-// },
-// status:{
-//         fontSize:14,
-//         color:'#9ACD32',
-//         fontWeight:"500",
-// },
-// name:{
-//     fontSize:20,
-//     color:'#000',
-//     fontWeight:'bold',
-// },
-
-// description:{
-//     fontSize:14,
-//     color:'grey',
-// },
-// imgContainer:{
-//     justifyContent:'space-between',
-//     alignItems:'center',
-//     gap:5,
-// },
-// img:{
-//     resizeMode: "cover",
-//     width: 60,
-//     height: 60,
-//     borderRadius: 50,
-//     borderColor: "grey",
-//     borderWidth: 1,
-// },
-// joined:{
-//     fontSize:12,
-//     fontWeight:'bold',
-// },
-// credits:{
-//     justifyContent:'center',
-//     alignItems:'center',
-//     width:'90%',
-//     height:'40%',
-//     gap:10,
-
-// },
-// line:{
-//     width:'100%',
-//     height:1,
-//     backgroundColor:'#d5d5d5',
-//     borderRadius:10,
-// },
-// rowItems1:{
-//     justifyContent:'space-between',
-//     alignItems:'center',
-//     flexDirection:'row',
-//     width:'100%',
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    gap:10,
+  },
+  txtContainer:{
+    justifyContent: "center",
+    alignItems: "flex-start",
+    width:'90%',
+    marginTop:20,
     
-// },
-// creditContainer:{
-//     justifyContent:'center',
-//     alignItems:'center',
-  
-// },
-// txt1:{
-//     fontSize:10,
-//     color:'grey',
+  },
+  txt: {
+    fontSize: 16,
+    color: "#000",
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  cardContainer:{
+    flex: 1,
+    width:'100%',
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap:10,
     
-// },
-// txt2:{
-//     fontSize:16,
-//     color:'#000',
-//     fontWeight:'bold'
-// },
+  },
+  btnContainer:{
+    width:'100%',
+    height:80,
+    justifyContent: "center",
+    alignItems: "center",
+    
+  },
+  logoutButton: {
+    backgroundColor: "#FFBF00",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
 
-})
+export default Home;

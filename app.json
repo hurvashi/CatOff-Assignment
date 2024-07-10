@@ -4,7 +4,7 @@
     "slug": "frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    
+    "platforms": ["ios", "android"],
     "userInterfaceStyle": "light",
     "splash": {
       
@@ -12,16 +12,36 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["location", "fetch"]
+      }
     },
     "android": {
       "adaptiveIcon": {
         
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": ["SENSOR_ACCELEROMETER", "FOREGROUND_SERVICE"]
     },
     "web": {
       
+    },
+    "extra": {
+      "expo": {
+        "background": {
+          "tasks": {
+            "stepCounterTask": {
+              "taskType": "background",
+              "taskPermission": "none"
+            }
+          }
+        }
+      }
+    }
     }
   }
-}
+
+  
+
+

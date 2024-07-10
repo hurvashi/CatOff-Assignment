@@ -16,8 +16,8 @@ export default function Card(){
     <View style = {styles.rowItems}>
     <View style = {styles.text}>
         <Text style = {styles.status}>UPCOMING</Text>
-        <Text style = {styles.name}>Walking Challenge</Text>
-        <Text style = {styles.description}>walikng 10 steps for a minute</Text>
+        <Text style = {styles.name}>Step Challenge</Text>
+        <Text style = {styles.description}>Walking 10k steps in an hour</Text>
     </View>
     <View style ={styles.imgContainer}>
         <Image source={require('../../assets/game.png')}

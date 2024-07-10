@@ -8,13 +8,11 @@ import Login from "./components/Login";
 import Home from "./components/home/Home";
 import Description from "./components/home/Description";
 import Signup from "./components/SIgnup";
+import GameDashboard from "./components/home/GameDashboard";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  // useEffect(() => {
-  //   StatusBar.setBarStyle("light-content");
-  // });
-
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -37,10 +35,19 @@ export default function App() {
           // options={{ headerShown: false}}
           component={Description}
         />
+         <Stack.Screen 
+          name = "GameDashboard"
+          // options={{ headerShown: false}}
+          component={GameDashboard}
+        />
         
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
+const GameDashboardScreen = ({ route }) => {
+  const { gameDetails } = route.params;
+  return <GameDashboard gameDetails={gameDetails} />;
+};
 
